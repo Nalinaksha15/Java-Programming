@@ -1,128 +1,91 @@
 ```java
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 class Product {
-    int id;
-    String name;
+    int productId;
+    String productName;
     int quantity;
-    int reorderLevel;
+    int minLevel;
 
-    Product(int id, String name, int quantity, int reorderLevel) {
-        this.id = id;
-        this.name = name;
+    Product(int productId, String productName, int quantity, int minLevel) {
+        this.productId = productId;
+        this.productName = productName;
         this.quantity = quantity;
-        this.reorderLevel = reorderLevel;
-    }
-
-    void display() {
-        System.out.printf("%-10d %-20s %-12d %-15d%n",
-                id, name, quantity, reorderLevel);
+        this.minLevel = minLevel;
     }
 }
 
-public class WarehouseInventory {
-
-    static ArrayList<Product> products = new ArrayList<>();
-    static Scanner sc = new Scanner(System.in);
+public class InventorySystem {
+    static Scanner input = new Scanner(System.in);
+    static ArrayList<Product> itemsList = new ArrayList<>();
 
     public static void main(String[] args) {
-
-        // Sample products
-        products.add(new Product(101, "Laptop", 15, 5));
-        products.add(new Product(102, "Keyboard", 4, 10));
-        products.add(new Product(103, "Mouse", 20, 8));
-
-        int choice;
+        int option;
 
         do {
-            System.out.println("\n===== WAREHOUSE INVENTORY SYSTEM =====");
+            System.out.println("\n=== Inventory Management ===");
             System.out.println("1. Add Product");
-            System.out.println("2. View All Products");
-            System.out.println("3. Check Low Stock");
-            System.out.println("4. Reorder Stock");
+            System.out.println("2. Show Products");
+            System.out.println("3. Issue Product");
+            System.out.println("4. Reorder Check");
             System.out.println("5. Exit");
-            System.out.print("Enter your choice: ");
 
-            choice = readInt();
+            System.out.print("Choose option: ");
+            option = input.nextInt();
 
-            switch (choice) {
+            switch (option) {
                 case 1:
                     addProduct();
                     break;
 
                 case 2:
-                    viewProducts();
+                    displayProducts();
                     break;
 
                 case 3:
-                    checkLowStock();
+                    issueProduct();
                     break;
 
                 case 4:
-                    reorderStock();
+                    checkStockLevel();
                     break;
 
                 case 5:
-                    System.out.println("Thank you for using the system!");
+                    System.out.println("Program ended...");
                     break;
 
                 default:
-                    System.out.println("Invalid choice. Try again.");
+                    System.out.println("Wrong choice!");
             }
-
-        } while (choice != 5);
-
-        sc.close();
+        } while (option != 5);
     }
 
-    static int readInt() {
-        while (!sc.hasNextInt()) {
-            System.out.print("Enter a valid number: ");
-            sc.next();
-        }
-        return sc.nextInt();
-    }
-
+    // method to add new product
     static void addProduct() {
         System.out.print("Enter Product ID: ");
-        int id = readInt();
-
-        if (findProduct(id) != null) {
-            System.out.println("Product ID already exists!");
-            return;
-        }
-
-        sc.nextLine();
+        int id = input.nextInt();
+        input.nextLine();
 
         System.out.print("Enter Product Name: ");
-        String name = sc.nextLine().trim();
-
-        if (name.isEmpty()) {
-            System.out.println("Product name cannot be empty.");
-            return;
-        }
+        String name = input.nextLine();
 
         System.out.print("Enter Quantity: ");
-        int quantity = readInt();
+        int qty = input.nextInt();
 
-        System.out.print("Enter Reorder Level: ");
-        int level = readInt();
+        System.out.print("Enter Minimum Level: ");
+        int level = input.nextInt();
 
-        if (quantity < 0 || level < 0) {
-            System.out.println("Quantity and reorder level cannot be negative.");
-            return;
-        }
+        itemsList.add(new Product(id, name, qty, level));
 
-        products.add(new Product(id, name, quantity, level));
         System.out.println("Product added successfully!");
     }
 
-    static void viewProducts() {
-        if (products.isEmpty()) {
-            System.out.println("No products available.");
+    // method to display all products
+    static void displayProducts() {
+        if (itemsList.isEmpty()) {
+            System.out.println("No products found!");
             return;
         }
 
-        System.out.printf("%-10s %-20s %-12s %-15s%n",
+        for
 ```
