@@ -1,4 +1,4 @@
-```java
+java
 import java.util.*;
 
 class Product {
@@ -87,5 +87,47 @@ public class InventorySystem {
             return;
         }
 
-        for
-```
+        for (Product p : itemsList) {
+            System.out.println(p.productId + " - " + p.productName + " - Qty: " + p.quantity);
+        }
+    }
+
+    // method to issue product (reduce stock)
+    static void issueProduct() {
+        System.out.print("Enter Product ID: ");
+        int id = input.nextInt();
+
+        for (Product p : itemsList) {
+            if (p.productId == id) {
+                System.out.print("Enter quantity to issue: ");
+                int q = input.nextInt();
+
+                if (q <= p.quantity) {
+                    p.quantity -= q;
+                    System.out.println("Product issued!");
+                } else {
+                    System.out.println("Stock not sufficient!");
+                }
+                return;
+            }
+        }
+
+        System.out.println("Invalid Product ID!");
+    }
+
+    // method to check reorder condition
+    static void checkStockLevel() {
+        boolean alert = false;
+
+        for (Product p : itemsList) {
+            if (p.quantity < p.minLevel) {
+                System.out.println("Low stock! Reorder: " + p.productName);
+                alert = true;
+            }
+        }
+
+        if (!alert) {
+            System.out.println("Stock level is normal 👍");
+        }
+    }
+}
